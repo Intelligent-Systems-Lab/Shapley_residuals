@@ -96,4 +96,20 @@ def find_global_min(index,subset_len,non_consider_feature=[]):
     print(A)
     for item in keys_smallest_10_percent:
         print(item)
+
+def trans_json_to_dictinary(json_file_name):
+
+    with open(json_file_name) as f:
+        data = json.load(f)
+    return data
     
+    
+
+def create_different_len_subset_list(data,feature_num=14):
+    ''' input dictionary and show the graph'''
+    different_len_subset_list = [{} for _ in range(feature_num)]        #dictionaries for different length
+    for key, value in data.items():
+        numbers = [int(num) for num in re.findall(r'\d+', key)] 
+        if 0 not in numbers:
+            different_len_subset_list [len(numbers)-1][key] = value         
+    return different_len_subset_list
