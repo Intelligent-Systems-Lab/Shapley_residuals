@@ -3,6 +3,7 @@ import json
 import numpy as np
 import csv
 import re
+from itertools import combinations
 
 def length_2_subset_dependency(index=4,feature_num=14):
     '''transform length 2 subset scaled norm to matrix and csv file'''
@@ -105,11 +106,22 @@ def trans_json_to_dictinary(json_file_name):
     
     
 
-def create_different_len_subset_list(data,feature_num=14):
+def create_different_len_subset_list(data,feature_num=14,non_consider_feature=[]):
     ''' input dictionary and show the graph'''
+    flag = True
     different_len_subset_list = [{} for _ in range(feature_num)]        #dictionaries for different length
     for key, value in data.items():
+        flag = True
         numbers = [int(num) for num in re.findall(r'\d+', key)] 
-        if 0 not in numbers:
+        for feature in non_consider_feature:
+            if feature in numbers:
+                flag = False
+        if flag:
             different_len_subset_list [len(numbers)-1][key] = value         
     return different_len_subset_list
+
+def generate_all_subsets(num):                     #
+    num_set = [i for i in range(num)]
+    all_subsets = [np.array(s) for r in range(num+1) for s in combinations(num_set, r) ]
+    # Create a hash table to store the index of each subset
+    return all_subsets

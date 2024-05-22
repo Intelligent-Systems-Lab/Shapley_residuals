@@ -3,10 +3,12 @@ import json
 import numpy as np 
 from itertools import combinations
 from tqdm import tqdm
-from trans import length_2_subset_dependency
-from utils import find_subset
-partial_gradient_norm  = [157.45983793688174, 70.89748785729097, 11.937955591502295, 12.080996888847814, 1.3813578218365627, 76.4881568583596, 12.152054823915101, 69.2422304823941, 277.83891716006013, 463.53163772592507, 42.747448737332206, 0.0010596747511542048, 1.0517704107680075, 6.078212817669511]
-index = 6
+from trans import length_2_subset_dependency, find_a_subset
+import re
+
+partial_gradient_norm  = [205.20092664677492,36.047878801669455,29.683176751851395,1.999354533176028,17.85126009009083,27.19960733216971,4.816600610601949,0.6584128665054827,1.9083033110109646,8.35525979004056,0.2086733465832431,0.0001609069527539475,36.528259253307056,6.644863153407666]
+index = 10
+print(index)
 folder_path = f"./instance_{index}_vi_data"
 file_extension = 'res.json'
 params_list = ['X_-TACT_TIME_mean', 'X_-CONVEYOR_SPEED_mean', 'PUMP_high', 'PUMP_low', 'CLN1_over-etching-ratio', 'CLN1_EPT_time', 'clean_count', 'EPT_clean_count_ratio', 'NH3_TREAT_-RF_FREQ-max', 'NH3_TREAT_-RF_FREQ-range', 'NH3_TREAT_-RF_FREQ-mean', 'NP_3_-MFC_VOL_SIH4-range', 'VENT_high', 'VENT_low', 'DFT_CNT']
@@ -59,7 +61,7 @@ saved_file_name = f'./instance_{index}_vi_data/instance_{index}_allsubsets_scale
 with open(saved_file_name, 'w') as json_file:
     json.dump(residual_norm_of_each_subset, json_file)
 length_2_subset_dependency(index=index)
-find_subset(index=index)
+
 #print(res_vector_data)
 #for json_file in json_files:
     #file_path = os.path
